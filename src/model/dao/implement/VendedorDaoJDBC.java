@@ -47,6 +47,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 		
 		PreparedStatement query = null;
 		ResultSet result = null;
+		
 		try {
 			query = conn.prepareStatement(
 					"SELECT seller.*,department.Name as DepName "
@@ -61,19 +62,9 @@ public class VendedorDaoJDBC implements VendedorDao {
 			
 			if(result.next()) {
 				// criando objeto departamento da tabela DB
-				Departamento depto = new Departamento();
-				depto.setId(result.getInt("DepartmentId"));
-				depto.setName(result.getString("DepName"));
-				
+				Departamento depto = criaDepartamento(result);
 				// criando objeto vendedor da tabela DB
-				Vendedor vend = new Vendedor();
-				vend.setId(result.getInt("Id"));
-				vend.setName(result.getString("Name"));
-				vend.setEmail(result.getString("Email"));
-				vend.setBaseSalary(result.getDouble("BaseSalary"));
-				vend.setBirthDate(result.getDate("BirthDate").toLocalDate()); // converte data sql p/ LocalDate
-				
-				vend.setDepartment(depto); // criado com objeto Departamento (q foi criado c/ dados do DB)
+				Vendedor vend = criaVendedor(result, depto);
 				
 				return vend;
 			}
@@ -86,6 +77,30 @@ public class VendedorDaoJDBC implements VendedorDao {
 			DB.fecharSatement(query);
 			DB.fecharResultSet(result);
 		}
+	}
+
+	
+	// Cria objeto departamento a partir do SQL
+	private Departamento criaDepartamento(ResultSet result) throws SQLException {
+		Departamento depto = new Departamento();
+		depto.setId(result.getInt("DepartmentId"));
+		depto.setName(result.getString("DepName"));
+		
+		return depto;
+	}
+	
+	// Cria objeto departamento a partir do SQL
+	private Vendedor criaVendedor(ResultSet result, Departamento depto) throws SQLException {
+		Vendedor vend = new Vendedor();
+		vend.setId(result.getInt("Id"));
+		vend.setName(result.getString("Name"));
+		vend.setEmail(result.getString("Email"));
+		vend.setBaseSalary(result.getDouble("BaseSalary"));
+		vend.setBirthDate(result.getDate("BirthDate").toLocalDate()); // converte data sql p/ LocalDate
+		
+		vend.setDepartment(depto); // criado com objeto Departamento (q foi criado c/ dados do DB)
+		
+		return vend;
 	}
 
 	@Override

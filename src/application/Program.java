@@ -8,9 +8,11 @@ public class Program {
 
 	public static void main(String[] args) {
 		
-		VendedorDao vendedorDao = DaoFactory.criaVendedorDao();
+		VendedorDao vendDao = DaoFactory.criaVendedorDao();
 		
-		Vendedor vend = vendedorDao.findById(7);
+		
+		System.out.println("====| TESTE 1: Vendedor findById |====");
+		Vendedor vend = vendDao.findById(7);
 		
 		System.out.println(vend);
 
