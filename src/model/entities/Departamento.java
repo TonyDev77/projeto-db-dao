@@ -2,7 +2,7 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Departmento implements Serializable {
+public class Departamento implements Serializable {
 
 	// versão padrão do serialize obrigatoriamente implementada
 	private static final long serialVersionUID = 1L;
@@ -12,11 +12,11 @@ public class Departmento implements Serializable {
 	private String name = "";
 	
 	// construtores
-	public Departmento() {
+	public Departamento() {
 		
 	}
 	
-	public Departmento(int id, String name) {
+	public Departamento(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -54,7 +54,7 @@ public class Departmento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Departmento other = (Departmento) obj;
+		Departamento other = (Departamento) obj;
 		if (id != other.id)
 			return false;
 		return true;
