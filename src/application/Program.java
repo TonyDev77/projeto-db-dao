@@ -2,6 +2,8 @@ package application;
 
 import java.time.LocalDate;
 
+import model.dao.DaoFactory;
+import model.dao.VendedorDao;
 import model.entities.Departamento;
 import model.entities.Vendedor;
 
@@ -14,6 +16,8 @@ public class Program {
 		
 		Vendedor vendedor = new Vendedor(1, "Boby", "boby@mail.com", LocalDate.now(), 3000.00, obj);
 		System.out.println(vendedor);
+		
+		VendedorDao vendedorDao = DaoFactory.criaVendedorDao();
 
 	}
 
