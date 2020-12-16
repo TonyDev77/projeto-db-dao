@@ -18,9 +18,15 @@ public class Program {
 		Vendedor vend = vendDao.findById(7);
 		System.out.println(vend);
 
-		System.out.println("====| TESTE 2: Vendedor findByDepartment |====");
+		System.out.println("\n====| TESTE 2: Vendedor findByDepartment (2) |====");
 		Departamento departemento = new Departamento(2, null); // buscar apenas o id
 		List<Vendedor> vendedores = vendDao.findByDepartment(departemento); // chama o findByDepartment
+		for (Vendedor vendedor : vendedores) { // varre a lista
+			System.out.println(vendedor);
+		}
+		
+		System.out.println("\n====| TESTE 3: Vendedor findAll |====");
+		vendedores = vendDao.findAll(); // chama o findByDepartment
 		for (Vendedor vendedor : vendedores) { // varre a lista
 			System.out.println(vendedor);
 		}

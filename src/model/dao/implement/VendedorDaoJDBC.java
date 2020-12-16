@@ -92,7 +92,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 		return depto;
 	}
 	
-	// Cria objeto departamento a partir do SQL
+	// Cria objeto vendedor a partir do SQL
 	private Vendedor criaVendedor(ResultSet result, Departamento depto) throws SQLException {
 		Vendedor vend = new Vendedor();
 		vend.setId(result.getInt("Id"));
@@ -108,8 +108,48 @@ public class VendedorDaoJDBC implements VendedorDao {
 
 	@Override
 	public List<Vendedor> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement query = null;
+		ResultSet result = null;
+		
+		try {
+			query = conn.prepareStatement(
+					"SELECT seller.*,department.Name as DepName "
+					+ "FROM seller INNER JOIN department "
+					+ "ON seller.DepartmentId = department.Id "
+					+ "ORDER BY Name"
+				);
+			result = query.executeQuery();
+			
+			List<Vendedor> listVend = new ArrayList<>(); // lista p/ guardar o resultado
+			
+			/*
+			 * O Map e o if abaixo servem para evitar que a
+			 * cada passada do laço seja instanciado o mesmo departamento mais de uma vez, pois ele não 
+			 * admite repetições, mantendo assim um único id/departamento por tipo, dentro do Map na memória.
+			 */
+			Map<Integer, Departamento> map = new HashMap<>(); // Map vazio p/ não repetir departamento
+			
+			while (result.next()) {
+				Departamento depto = map.get(result.getInt("DepartmentId")); // se não existir no map, retorna null
+				
+				if (depto == null) { // testa se departamento é null
+					depto = criaDepartamento(result); // instancia departamento
+					map.put(result.getInt("DepartmentId"), depto); // guarda no map
+				}
+				
+				Vendedor vend = criaVendedor(result, depto);
+				listVend.add(vend);
+			}
+			
+			return listVend;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+			
+		} finally {
+			DB.fecharSatement(query);
+			DB.fecharResultSet(result);
+		}
 	}
 
 	@Override
