@@ -1,9 +1,11 @@
 package model.dao.implement;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,13 +30,45 @@ public class VendedorDaoJDBC implements VendedorDao {
 	}
 
 	@Override
-	public void insert(Vendedor obj) {
-		// TODO Auto-generated method stub
-		
+	public void insert(Vendedor vendedor) {
+		PreparedStatement query = null;
+		try {
+			query = conn.prepareStatement(
+					"INSERT INTO seller "
+					+ "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+					+ "VALUES (?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS
+				);
+			query.setString(1, vendedor.getName());
+			query.setString(2, vendedor.getEmail());
+			query.setDate(3, Date.valueOf(vendedor.getBirthDate())); // Date aqui é do java.sql.date
+			query.setDouble(4, vendedor.getBaseSalary());
+			query.setInt(5, vendedor.getDepartment().getId());
+			
+			int linhasAfetadas = query.executeUpdate();
+			
+			if (linhasAfetadas > 0) {
+				ResultSet result = query.getGeneratedKeys();
+				if (result.next()) {
+					int id = result.getInt(1); // pega o ID gerado na inserção 
+					vendedor.setId(id); // seta o id do objeto vendedor c/ o id retornado do sql
+				}
+				DB.fecharResultSet(result);
+				
+			} else {
+				throw new DbException("Erro inesperado: Nenhuma linha foi alterada!");
+			}
+			
+		} catch (SQLException e) {
+			throw new  DbException(e.getMessage());
+			
+		} finally {
+			DB.fecharSatement(query);
+		}
 	}
 
 	@Override
-	public void update(Vendedor obj) {
+	public void update(Vendedor vendedor) {
 		// TODO Auto-generated method stub
 		
 	}

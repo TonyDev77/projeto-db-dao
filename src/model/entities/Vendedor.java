@@ -2,10 +2,15 @@ package model.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 
 public class Vendedor  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
+//	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//	TemporalAccessor parse = dtf.parse("18/10/1980");
 	
 	private Integer id = 0;
 	private String name = "";
@@ -18,11 +23,15 @@ public class Vendedor  implements Serializable {
 		
 	}
 
-	public Vendedor(Integer id, String name, String email, LocalDate birthDate, Double baseSalary, Departamento department) {
+	public Vendedor(Integer id, String name, String email, String birthDate, Double baseSalary, Departamento department) {
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		TemporalAccessor bthDate = dtf.parse(birthDate);
+		
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.birthDate = birthDate;
+		this.birthDate = LocalDate.from(bthDate);
 		this.baseSalary = baseSalary;
 		this.department = department;
 	}

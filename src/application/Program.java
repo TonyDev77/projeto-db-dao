@@ -15,12 +15,12 @@ public class Program {
 		
 		
 		System.out.println("====| TESTE 1: Vendedor findById |====");
-		Vendedor vend = vendDao.findById(7);
+		Vendedor vend = vendDao.findById(7); // criado com dados do sql
 		System.out.println(vend);
 
 		System.out.println("\n====| TESTE 2: Vendedor findByDepartment (2) |====");
-		Departamento departemento = new Departamento(2, null); // buscar apenas o id
-		List<Vendedor> vendedores = vendDao.findByDepartment(departemento); // chama o findByDepartment
+		Departamento departamento = new Departamento(2, null); // buscar apenas o id
+		List<Vendedor> vendedores = vendDao.findByDepartment(departamento); // chama o findByDepartment
 		for (Vendedor vendedor : vendedores) { // varre a lista
 			System.out.println(vendedor);
 		}
@@ -30,6 +30,14 @@ public class Program {
 		for (Vendedor vendedor : vendedores) { // varre a lista
 			System.out.println(vendedor);
 		}
+		
+		System.out.println("\n====| TESTE 4: Vendedor insert |====");
+		// passando dados p/ o construtor, depois p/ o sql
+		Vendedor novoVendedor = new Vendedor(null, "Greg", "greg@mail.com", "18/10/1980", 4000.0, departamento);
+		vendDao.insert(novoVendedor);
+		System.out.println("Inserido! Novo ID: " + novoVendedor.getId());
+		
+		
 	}
 
 }
