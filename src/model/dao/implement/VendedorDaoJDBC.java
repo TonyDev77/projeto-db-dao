@@ -31,7 +31,9 @@ public class VendedorDaoJDBC implements VendedorDao {
 
 	@Override
 	public void insert(Vendedor vendedor) {
+		
 		PreparedStatement query = null;
+		
 		try {
 			query = conn.prepareStatement(
 					"INSERT INTO seller "
@@ -53,6 +55,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 					int id = result.getInt(1); // pega o ID gerado na inserção 
 					vendedor.setId(id); // seta o id do objeto vendedor c/ o id retornado do sql
 				}
+				
 				DB.fecharResultSet(result);
 				
 			} else {
@@ -69,7 +72,34 @@ public class VendedorDaoJDBC implements VendedorDao {
 
 	@Override
 	public void update(Vendedor vendedor) {
-		// TODO Auto-generated method stub
+		
+		PreparedStatement query = null;
+		
+		try {
+			query = conn.prepareStatement(
+					"UPDATE seller "
+					+ "SET Name = ?, "
+					+ "Email = ?, "
+					+ "BirthDate = ?, "
+					+ "BaseSalary = ?, "
+					+ "DepartmentId = ? "
+					+ "WHERE Id = ?" 
+				);
+			query.setString(1, vendedor.getName());
+			query.setString(2, vendedor.getEmail());
+			query.setDate(3, Date.valueOf(vendedor.getBirthDate())); // O "Date" aqui, é do java.sql.date
+			query.setDouble(4, vendedor.getBaseSalary());
+			query.setInt(5, vendedor.getDepartment().getId());
+			query.setInt(6, vendedor.getId());
+			
+			query.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new  DbException(e.getMessage());
+			
+		} finally {
+			DB.fecharSatement(query);
+		}
 		
 	}
 

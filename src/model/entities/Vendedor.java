@@ -9,9 +9,6 @@ public class Vendedor  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-//	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//	TemporalAccessor parse = dtf.parse("18/10/1980");
-	
 	private Integer id = 0;
 	private String name = "";
 	private String email = "";

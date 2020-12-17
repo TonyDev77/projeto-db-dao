@@ -33,11 +33,15 @@ public class Program {
 		
 		System.out.println("\n====| TESTE 4: Vendedor insert |====");
 		// passando dados p/ o construtor, depois p/ o sql
-		Vendedor novoVendedor = new Vendedor(null, "Greg", "greg@mail.com", "18/10/1980", 4000.0, departamento);
+		/*Vendedor novoVendedor = new Vendedor(null, "Greg", "greg@mail.com", "18/10/1980", 4000.0, departamento);
 		vendDao.insert(novoVendedor);
-		System.out.println("Inserido! Novo ID: " + novoVendedor.getId());
+		System.out.println("Inserido! Novo ID: " + novoVendedor.getId());*/
 		
-		
+		System.out.println("\n====| TESTE 5: Vendedor update |====");
+		/*vend = vendDao.findById(1);
+		vend.setName("Martha Waine");
+		vendDao.update(vend);
+		System.out.println("Update concluído com sucesso!");*/
 	}
 
 }
