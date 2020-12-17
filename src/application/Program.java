@@ -42,6 +42,10 @@ public class Program {
 		vend.setName("Martha Waine");
 		vendDao.update(vend);
 		System.out.println("Update concluído com sucesso!");*/
+		
+		System.out.println("\n====| TESTE 6: Vendedor delete |====");
+		vendDao.deleteById(11);
+		System.out.println("Deletado com sucess!");
 	}
 
 }
