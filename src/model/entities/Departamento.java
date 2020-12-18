@@ -8,7 +8,7 @@ public class Departamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// atributos
-	private int id = 0;
+	private Integer id = 0;
 	private String name = "";
 	
 	// construtores
@@ -16,17 +16,17 @@ public class Departamento implements Serializable {
 		
 	}
 	
-	public Departamento(int id, String name) {
+	public Departamento(Integer id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
 	// getters e setters
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -44,8 +44,7 @@ public class Program {
 		System.out.println("Update concluído com sucesso!");*/
 		
 		System.out.println("\n====| TESTE 6: Vendedor delete |====");
-		vendDao.deleteById(11);
-		System.out.println("Deletado com sucess!");
+		vendDao.deleteById(12);
 	}
 
 }

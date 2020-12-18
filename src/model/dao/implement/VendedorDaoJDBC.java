@@ -25,6 +25,7 @@ public class VendedorDaoJDBC implements VendedorDao {
 	
 	private Connection conn = null;
 	
+	// construtor
 	public VendedorDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
@@ -114,7 +115,9 @@ public class VendedorDaoJDBC implements VendedorDao {
 			
 			int linhasAfetadas = query.executeUpdate();
 			if (linhasAfetadas == 0) {
-				throw new DbException("Não existe esse ID");
+				System.out.println("O id não existe no BD");;
+			} else {
+				System.out.println("O id: " + id + " foi deletado com sucesso!");
 			}
 			
 		} catch (SQLException e) {
