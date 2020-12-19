@@ -39,7 +39,7 @@ public class DB {
 	// Carrega os dados de conexão do arquivo "db.prperties"
 	private static Properties getPropriedadesConexao() {
 		
-		try (FileInputStream fs = new FileInputStream("db.properties")) {
+		try (FileInputStream fs = new FileInputStream("env")) {
 			Properties props = new Properties();
 			props.load(fs); // lê e guarda os dados do arquivo
 			return props;

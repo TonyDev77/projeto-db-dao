@@ -103,7 +103,7 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 			int linhasAfetadas = query.executeUpdate();
 			
 			if (linhasAfetadas == 0) {
-				System.out.println("O id não existe no BD");;
+				System.out.println("O id " + id + " não existe no BD");;
 			} else {
 				System.out.println("O id: " + id + " foi deletado com sucesso!");
 			}
@@ -186,5 +186,4 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 			DB.fecharResultSet(result);
 		}
 	}
-
 }
